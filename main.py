@@ -18,6 +18,6 @@ def setter(l):
     return n
 def encode(text, square1,square2):
     for pair_letters in range(len(text)):
-
+        pass
 create_square('соска')
 
