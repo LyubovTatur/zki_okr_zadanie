@@ -9,6 +9,8 @@ def create_square(key):
     square = list()
     for i in range(6):
         square.append(temp_list[i*6:(i+1)*6])
+        print(square[i])
+    print('________')
     return square
 def setter(l):
     n = []
@@ -16,8 +18,49 @@ def setter(l):
         if i not in n:
             n.append(i)
     return n
-def encode(text, square1,square2):
-    for pair_letters in range(len(text)):
-        pass
-create_square('соска')
+def encode(text, key_1,key_2):
+    range_val = len(text)
+    result = ''
+    square_1 = create_square(key_1)
+    square_2 = create_square(key_2)
 
+    if len(text) %2 != 0:
+        range_val += 1
+        text += ' '
+    i = 0
+    while i < range_val:
+        letter_1 = text[i]
+        letter_2 = text[i+1]
+        i += 2
+        x_1 = -1
+        y_1 = -1
+        x_2 = -1
+        y_2 = -1
+        for y in range(len(square_1)):
+            for x in range(len(square_1[0])):
+                if square_1[x][y] == letter_1:
+                    x_1 = x
+                    y_1 = y
+                if square_2[x][y] == letter_2:
+                    x_2 = x
+                    y_2 = y
+        #print(str(x_1)+' '+str(y_1) + ' ' +letter_1  + ' | ' + str(x_1) + ' '+ str(y_2)+ ' ' + square_2[x_1][y_2] )
+        #print(str(x_2)+' '+str(y_2) + ' ' +letter_2  + ' | ' + str(x_2) + ' '+ str(y_1)+ ' ' + square_1[x_2][y_1] )
+        #print('________')
+        #result = result+square_2[y_1][y_2]+square_1[x_2][x_1]
+        #result = result+square_2[x_1][x_2]+square_1[y_2][y_1]
+        result = result + square_2[x_1][y_2] + square_1[x_2][y_1]
+        #result = result+square_2[y_2][y_1]+square_1[x_1][x_2]
+        #result = result+square_2[x_2][x_1]+square_1[y_1][y_2]
+
+    return result
+def decode(text, key_1,key_2):
+    pass
+text = input('введите сообщение')
+key_1 = input('ведите первый ключ')
+key_2 = input('введите второй ключ')
+print('зашифрованное')
+coded_text = encode(text, key_1,key_2)
+print(coded_text)
+print('расшифрованное')
+print(encode(coded_text, key_2,key_1))
